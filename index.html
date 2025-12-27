@@ -26,6 +26,11 @@
             --bg-main: #fcfcfc;
             --accent: #6366f1;
         }
+        html, body, #root {
+            height: 100%;
+            overflow: hidden; /* 防止全局滚动 */
+            overscroll-behavior: none; /* 关键：禁止 iOS 橡皮筋效果 */
+        }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-main);
@@ -33,8 +38,6 @@
             user-select: none;
             -webkit-tap-highlight-color: transparent;
             -webkit-font-smoothing: antialiased;
-            padding-top: env(safe-area-inset-top);
-            padding-bottom: env(safe-area-inset-bottom);
         }
         .font-diary {
             font-family: 'LXGW WenKai Screen', "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
@@ -46,9 +49,9 @@
         .shadow-soft { box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05); }
         .shadow-deep { box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1); }
         .glass {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
         }
         @keyframes flowing-gradient {
             0% { background-position: 0% 50%; }

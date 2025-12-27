@@ -213,17 +213,17 @@ const App: React.FC = () => {
   const dashOffset = dashArray * (1 - coverageRatio);
 
   return (
-    <div className="flex flex-col h-screen max-w-md mx-auto bg-[#FCFCFC] overflow-hidden shadow-2xl relative">
+    <div className="flex flex-col h-full max-w-md mx-auto bg-[#FCFCFC] relative overflow-hidden">
       
       {/* Modal: Data Privacy Info */}
       {showDataInfo && (
-        <div className="absolute inset-0 z-[100] flex items-center justify-center p-6 bg-black/5 backdrop-blur-md animate-in fade-in duration-300">
-           <div className="w-full bg-white rounded-[3rem] p-10 shadow-deep border border-gray-100 relative">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/5 backdrop-blur-md animate-in fade-in duration-300">
+           <div className="w-full max-w-[calc(100%-3rem)] bg-white rounded-[3rem] p-10 shadow-deep border border-gray-100 relative">
               <button onClick={() => setShowDataInfo(false)} className="absolute top-6 right-6 p-2 text-gray-300"><X className="w-5 h-5"/></button>
               <div className="w-14 h-14 bg-indigo-50 text-indigo-500 rounded-full flex items-center justify-center mx-auto mb-6">
                 <ShieldCheck className="w-6 h-6" />
               </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-2">隐私与存储说明</h3>
+              <h3 className="text-lg font-bold text-gray-900 mb-2 text-center">隐私与存储说明</h3>
               <div className="text-left space-y-4 text-xs text-gray-500 leading-relaxed font-diary">
                 <p>• 你的所有照片和文字仅存储在**当前手机本地**，不会上传到任何服务器。</p>
                 <p>• 即使开发者也无法查看你的内容。这意味着你的隐私得到了 100% 的保护。</p>
@@ -241,8 +241,8 @@ const App: React.FC = () => {
 
       {/* Modal: Delete */}
       {showDeleteConfirm && (
-        <div className="absolute inset-0 z-[100] flex items-center justify-center p-6 bg-black/5 backdrop-blur-md animate-in fade-in duration-300">
-           <div className="w-full bg-white rounded-[3rem] p-10 shadow-deep text-center border border-gray-100">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/5 backdrop-blur-md animate-in fade-in duration-300">
+           <div className="w-full max-w-[calc(100%-3rem)] bg-white rounded-[3rem] p-10 shadow-deep text-center border border-gray-100">
               <div className="w-14 h-14 bg-red-50 text-red-400 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Trash2 className="w-6 h-6" />
               </div>
@@ -268,7 +268,7 @@ const App: React.FC = () => {
 
       {/* Toast */}
       {toast && (
-        <div className="absolute top-16 left-1/2 -translate-x-1/2 z-[60] animate-in slide-in-from-top-4 duration-500">
+        <div className="fixed top-16 left-1/2 -translate-x-1/2 z-[110] animate-in slide-in-from-top-4 duration-500">
           <div className={`flex items-center gap-3 px-6 py-2.5 rounded-full shadow-deep text-white text-[10px] font-black tracking-widest uppercase ${toast.type === 'success' ? 'bg-indigo-600' : 'bg-red-500'}`}>
             {toast.type === 'success' ? <CheckCircle2 className="w-3.5 h-3.5" /> : <AlertCircle className="w-3.5 h-3.5" />}
             {toast.message}
@@ -277,7 +277,7 @@ const App: React.FC = () => {
       )}
 
       {/* Header */}
-      <header className="px-4 pt-10 pb-4 flex items-center justify-between z-20 sticky top-0 bg-[#FCFCFC]/80 backdrop-blur-sm">
+      <header className="px-4 pt-12 pb-4 flex items-center justify-between z-40 bg-[#FCFCFC]/80 backdrop-blur-sm sticky top-0">
         <div className="flex items-center gap-4">
            {(currentView === AppView.TODAY || currentView === AppView.SUMMARY) && (
              <button onClick={() => setCurrentView(AppView.CALENDAR)} className="p-2 -ml-2 text-gray-900 hover:bg-gray-100 rounded-full transition-colors">
@@ -308,7 +308,7 @@ const App: React.FC = () => {
       </header>
 
       {/* Content */}
-      <main className="flex-1 overflow-y-auto hide-scrollbar pb-28">
+      <main className="flex-1 overflow-y-auto hide-scrollbar pb-32">
         {currentView === AppView.CALENDAR && (
           <div className="px-4 space-y-6">
             <div className="flex items-center justify-between py-4">
@@ -358,8 +358,7 @@ const App: React.FC = () => {
                </div>
             </div>
 
-            {/* Hint for Friends */}
-            <p className="text-[9px] text-center text-gray-300 font-black uppercase tracking-[0.2em] pb-4">
+            <p className="text-[9px] text-center text-gray-300 font-black uppercase tracking-[0.2em] pb-8">
               Tip: Add to Home Screen for the best experience
             </p>
           </div>
@@ -488,8 +487,8 @@ const App: React.FC = () => {
         )}
       </main>
 
-      {/* Nav Bar */}
-      <nav className="px-4 py-4.5 flex items-center justify-center gap-16 glass border-t border-gray-50 absolute bottom-0 left-0 right-0 z-30 pb-[env(safe-area-inset-bottom)]">
+      {/* Nav Bar - Fixed to bottom, removed border from central button to satisfy user request */}
+      <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md h-20 px-4 flex items-center justify-center gap-16 glass border-t border-gray-50 z-50 pb-[env(safe-area-inset-bottom)]">
         <button 
           onClick={() => setCurrentView(AppView.CALENDAR)}
           className={`flex flex-col items-center gap-1 transition-all ${currentView === AppView.CALENDAR ? 'text-gray-900 scale-110' : 'text-gray-300 hover:text-gray-500'}`}
@@ -503,7 +502,7 @@ const App: React.FC = () => {
             setSelectedDate(new Date().toISOString().split('T')[0]);
             setCurrentView(AppView.TODAY);
           }}
-          className={`group -top-7 relative w-16 h-16 rounded-full shadow-xl shadow-indigo-100 active:scale-90 transition-all duration-500 overflow-hidden flex items-center justify-center flowing-bg`}
+          className={`group -top-8 relative w-16 h-16 rounded-full shadow-xl shadow-indigo-100 active:scale-90 transition-all duration-500 overflow-hidden flex items-center justify-center flowing-bg`}
         >
           <Plus className="w-8 h-8 stroke-[3] text-white group-hover:rotate-180 transition-transform duration-700" />
         </button>
