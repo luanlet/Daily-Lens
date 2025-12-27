@@ -4,7 +4,7 @@
   "name": "Daily Lens - 每一天都值得定格",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/9439/9439670.png",
+      "src": "https://raw.githubusercontent.com/luanlet/Daily-Lens/main/daily_icon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
