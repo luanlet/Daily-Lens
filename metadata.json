@@ -1,0 +1,7 @@
+{
+  "name": "Daily Lens - Life in Photos",
+  "description": "A daily photo diary app that captures one moment every day and uses AI to generate beautiful monthly summaries of your life journey.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
