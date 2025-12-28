@@ -39,6 +39,9 @@ const App: React.FC = () => {
   const isDeletingRef = useRef(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  // 获取当前显示月份的本地 key (格式: YYYY-MM)
+  const currentMonthKey = `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}`;
+
   useEffect(() => {
     const loadEntries = async () => {
       try {
@@ -126,8 +129,7 @@ const App: React.FC = () => {
   };
 
   const generateSummary = async () => {
-    const monthStr = currentMonth.toISOString().slice(0, 7);
-    const monthEntries = entries.filter(e => e.date.startsWith(monthStr) && e.imageUrl);
+    const monthEntries = entries.filter(e => e.date.startsWith(currentMonthKey) && e.imageUrl);
     
     if (monthEntries.length === 0) {
       showToast("本月尚无记录", "error");
@@ -205,8 +207,7 @@ const App: React.FC = () => {
     );
   };
 
-  const currentMonthStr = currentMonth.toISOString().slice(0, 7);
-  const monthLoggedCount = entries.filter(e => e.date.startsWith(currentMonthStr) && e.imageUrl).length;
+  const monthLoggedCount = entries.filter(e => e.date.startsWith(currentMonthKey) && e.imageUrl).length;
   const daysInThisMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0).getDate();
   const coverageRatio = monthLoggedCount / daysInThisMonth;
   const dashArray = 150.8; 
@@ -453,7 +454,7 @@ const App: React.FC = () => {
             <div className="relative aspect-video rounded-[2.5rem] overflow-hidden flex items-center justify-center shadow-deep">
               <div className="absolute inset-0">
                 <img 
-                  src={entries.filter(e => e.date.startsWith(currentMonth.toISOString().slice(0, 7)) && e.imageUrl)[0]?.imageUrl} 
+                  src={entries.filter(e => e.date.startsWith(currentMonthKey) && e.imageUrl)[0]?.imageUrl} 
                   className="w-full h-full object-cover blur-md scale-110 opacity-60"
                 />
                 <div className="absolute inset-0 bg-white/20"></div>
@@ -487,7 +488,7 @@ const App: React.FC = () => {
         )}
       </main>
 
-      {/* Nav Bar - Fixed to bottom, removed border from central button to satisfy user request */}
+      {/* Nav Bar */}
       <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md h-20 px-4 flex items-center justify-center gap-16 glass border-t border-gray-50 z-50 pb-[env(safe-area-inset-bottom)]">
         <button 
           onClick={() => setCurrentView(AppView.CALENDAR)}
